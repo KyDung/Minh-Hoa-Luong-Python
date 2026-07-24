@@ -1,9 +1,8 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="vi">
   <head>
-    
     <link rel="icon" href="favicon.ico" sizes="any" />
-<script>(function(s){s.dataset.zone='11381412',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+    <script>(function(s){s.dataset.zone='11381412',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sơ Đồ Đệ Quy & Luồng Chạy Python - Debug Từng Bước</title>
@@ -387,9 +386,9 @@ def _trace_calls(frame, event, arg):
         node_id = _node_counter
         _node_counter += 1
         func_name = frame.f_code.co_name
-        
+
         local_vars = {k: repr(v) for k, v in frame.f_locals.items() if not k.startswith('__')}
-        
+
         if func_name == "<module>":
             title = "Chương trình chính (Main)"
             call_args = {}
@@ -397,12 +396,12 @@ def _trace_calls(frame, event, arg):
             call_args = {k: repr(v) for k, v in frame.f_locals.items() if not k.startswith('__')}
             args_values = ", ".join(call_args.values())
             title = f"{func_name}({args_values})"
-            
+
         parent_id = _call_stack[-1] if _call_stack else None
-        
+
         _nodes_map[frame] = node_id
         _call_stack.append(node_id)
-        
+
         _events.append({
             "type": "call",
             "node_id": node_id,
@@ -419,7 +418,7 @@ def _trace_calls(frame, event, arg):
 def _trace_lines(frame, event, arg):
     node_id = _nodes_map.get(frame)
     if node_id is None: return None
-    
+
     local_vars = {k: repr(v) for k, v in frame.f_locals.items() if not k.startswith('__')}
 
     if event == "line":
